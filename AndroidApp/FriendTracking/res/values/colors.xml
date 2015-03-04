@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="mediumorchid4">#E066FF</color>
+    <color name="mediumorchid3">#D15FEE</color>
+    <color name="mediumorchid2">#B452CD</color>
+    <color name="mediumorchid1">#7A378B</color>
+    <color name="mediumorchid4_trans">#50E066FF</color>
+    <color name="mediumorchid1_trans">#807A378B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_60">#999999</color>
+
+</resources>

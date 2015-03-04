@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Friend Tracker API</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <style>
+    body { 
+	  padding: 60px 0 0 0;
+	}
+	a.anchor{display: block; position: relative; top: -60px; visibility: hidden;}
+	</style>
+  </head>
+
+  <body role="document">
+
+<!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Friend Tracker API Testing Area</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Documentation</a></li>
+            <li><a href="test.html">Test Area</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div><!-- End navigation -->
+
+    <div class="container theme-showcase" role="main"> 
+        <select id="test_area"  >
+            <option>Choose Testing Area:</option>
+            <option value="1">Register</option>
+            <option value="2">Login</option>
+            <option value="3">Search User</option>
+            <option value="4">Add Friend</option>
+            <option value="5">Accept Friend</option>
+            <option value="6">Get Pending Requests</option>
+            <option value="7">Get Friend List</option>
+            <option value="8">Tag</option>
+            <option value="9">Get Friend Tags</option>
+        </select>
+        <br />
+        <br />
+        <div id="methodDiv"></div>
+        <br />
+        <div id="formDiv">
+        </div>
+
+        <button type="button" id="response" class="btn btn-primary">
+            Response
+        </button>
+
+        <br /><br />
+        <textarea id="responseDiv" style="width: 800px; height: 100px;" readonly>
+        </textarea>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#response").hide();
+            $("#responseDiv").hide();
+
+            var registerNames = ["Username", "Password", "First Name", "Last Name", "Age", "Hometown", "E-mail", "Gender"];
+            var registerFields = ["username", "password", "first_name", "last_name", "age", "hometown", "email", "gender"];
+            var registerUrl = "register.php";
+            var registerMethod = "POST";
+
+            var loginNames = ["Username", "Password"];
+            var loginFields = ["username", "password"];
+            var loginUrl = "login.php";
+            var loginMethod = "POST";
+
+            var searchUserNames = ["Username", "Search Text"];
+            var searchUserFields = ["username", "search_text"];
+            var searchUserUrl = "searchUser.php";
+            var searchUserMethod = "POST";
+
+            var addFriendNames = ["Username", "Friend Name"];
+            var addFriendFields = ["username", "friendname"];
+            var addFriendUrl = "addFriend.php";
+            var addFriendMethod = "POST";
+
+            var acceptFriendNames = ["Username", "Friend Name"];
+            var acceptFriendFields = ["username", "friendname"];
+            var acceptFriendUrl = "acceptFriend.php";
+            var acceptFriendMethod = "POST";
+
+            var getPendingRequestsNames = ["Username"];
+            var getPendingRequestsFields = ["username"];
+            var getPendingRequestsUrl = "getPendingRequests.php";
+            var getPendingRequestsMethod = "POST";
+
+            var getFriendListNames = ["Username"];
+            var getFriendListFields = ["username"];
+            var getFriendListUrl = "getFriendList.php";
+            var getFriendListMethod = "POST";
+
+            var tagNames = ["Username", "Longitude", "Latitude", "Text"];
+            var tagFields = ["username", "longitude", "latitude", "text"];
+            var tagUrl = "tag.php";
+            var tagMethod = "POST";
+
+            var getFriendTagsNames = ["Username", "Since"];
+            var getFriendTagsFields = ["username", "since"];
+            var getFriendTagsUrl = "getFriendTags.php";
+            var getFriendTagsMethod = "POST";
+
+            var currentUrl = "";
+            var currentFields = [];
+            var currentMethod = "";
+
+            function setType(Names, Fields, Url, Method) {
+                for(var i=0;i<Names.length;i++) {
+                            $("#formDiv").append("<input id='" + Fields[i] + "'></input> " + Names[i] + "(" + Fields[i] + ")<br />");
+                }
+                $("#formDiv").append("<br />");
+                $("#methodDiv").text("Method: " + Method);
+                currentFields = Fields;
+                currentUrl = Url;
+                currentMethod = Method;
+            }
+
+            $("#test_area").on('change', function () {
+                var testArea = $("#test_area").val();
+                //clear previous text
+                $("#formDiv").text("");
+                currentUrl = "";
+                currentFields = [];
+                $("#responseDiv").text("");
+                $("#methodDiv").text("");
+
+                $("#response").show();
+                $("#responseDiv").show();
+                $("#methodDiv").show();
+
+                switch(testArea) {
+                    case "1": 
+                        setType(registerNames, registerFields, registerUrl, registerMethod);
+                    break;
+                    case "2":
+                        setType(loginNames, loginFields, loginUrl, loginMethod);
+                    break;
+                    case "3":
+                        setType(searchUserNames, searchUserFields, searchUserUrl, searchUserMethod);
+                    break;
+                    case "4":
+                        setType(addFriendNames, addFriendFields, addFriendUrl, addFriendMethod);
+                    break;
+                    case "5":
+                        setType(acceptFriendNames, acceptFriendFields, acceptFriendUrl, acceptFriendMethod);
+                    break;
+                    case "6":
+                        setType(getPendingRequestsNames, getPendingRequestsFields, getPendingRequestsUrl, getPendingRequestsMethod);
+                    break;
+                    case "7":
+                        setType(getFriendListNames, getFriendListFields, getFriendListUrl, getFriendListMethod);
+                    break;
+                    case "8":
+                        setType(tagNames, tagFields, tagUrl, tagMethod);
+                    break;
+                    case "9":
+                        setType(getFriendTagsNames, getFriendTagsFields, getFriendTagsUrl, getFriendTagsMethod);
+                    break;
+                    default: 
+                        $("#response").hide();
+                        $("#responseDiv").hide();
+                        $("#methodDiv").hide();
+                }
+
+            });
+
+            $("#response").click(function () {
+                if(currentUrl != "") {
+                    var reqBody = {};
+                    for(var i=0;i<currentFields.length;i++) {
+                        reqBody[currentFields[i]] = $("#" + currentFields[i]).val();
+                    }
+
+
+                    $.ajax({ 
+                        type: currentMethod, 
+                        url: currentUrl, 
+                        data: reqBody, 
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#responseDiv").text(JSON.stringify(data));
+                        }
+                    });
+
+                }
+            })
+
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+        .navbar-ft {
+            border-color: #080808;
+            background-color: #B452CD;
+        }
+        .navbar-ft a {
+            color: #fff;
+        }
+        .navbar-ft .active a {
+            background-color: #eee;
+            color: #7A378B;
+        }
+        .navbar-ft a:hover {
+            color: #000;
+        }
+        body {
+            padding-top: 70px;
+        }
+        #map-canvas {
+            height: 100%
+        }
+        .popover {
+            width: 250px;
+        }
+
+        .left_part {
+            width: 250px;
+        }

@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Friend Tracker API</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <style>
+    body { 
+	  padding: 60px 0 0 0;
+	}
+	a.anchor{display: block; position: relative; top: -60px; visibility: hidden;}
+	</style>
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Friend Tracker API</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#register-user">Register user</a></li>
+            <li><a href="#add-tag">Add tag</a></li>
+            <li><a href="#user-tags">Get user tags</a></li>
+            <li><a href="#contact">Friendship</a></li>
+            <li><a href="test.html">Test Area</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="register-user" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Register user</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/register.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>password</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>first_name</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>last_name</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>age</td>
+	    		<td>int</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>hometown</td>
+	    		<td>string(200)</td>
+	    		<td></td>
+	    	</tr>
+	    	<tr>
+	    		<td>email</td>
+	    		<td>string(200)</td>
+				<td></td>
+	    	</tr>
+	    	<tr>
+	    		<td>gender</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"register","success":1,"error":0,"token":"ac499f526bfed27fa4dbf78779af6db2","user_id":"14","user":{"id":"14","
+				username":"g_madzarov","password":"madzarov","first_name":"Grozdan","last_name"
+				:"Madzarov","age":"20","email":"","created_at":"2014-09-08 19:58:02","updated_at":"0000-00-00 00:00:00"}}</td>
+	  			<td>User is created sucessfully. System returns unique user_id.</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{{"tag":"register","success":0,"error":3,"error_msg":"Incomplete user informations"}</td>
+	  			<td>Invalid or missing user information. User is not created.</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"register","success":0,"error":2,"error_msg":"User already exist"}</td>
+	  			<td>Already is user with selected username. User is not created.</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+
+
+
+
+
+
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="login" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Login</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/login.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>password</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"login","success":1,"token":"58b8c1e59d49085da76d81b853881e98","user
+				":{"id":"4","username":"Vlado","password":"geneva","first_name":"Vladimir", "last_name":"Ilievski","age":"22",
+				"email":"ilievski.vladimir@live.com","created_at":"2014-08-22 00:36:49","updated_at":"2014-09-06 15:24:02"},
+				"time_created":"2014-09-08 19:00:04"}</td>
+	  			<td>User is logged in successfully.</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"login","success":0,"error":1,"error_msg":"Incorrect email or password"}</td>
+	  			<td>Invalid or missing user information.</td>
+	  		</tr>
+			<tr>
+	  			<td style="color: red;">{"tag":"login","success":0,"error":2,"error_msg":"Incomplete login informations"}</td>
+	  			<td>Invalid or missing user information.</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+
+
+
+
+
+
+
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="add-tag" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Add tag</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/tag.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>longitude</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>latitude</td>
+	    		<td>string(100)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>text</td>
+	    		<td>string(180)</td>
+	    		<td><span style="color: red"></span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"tag","success":1}</td>
+	  			<td>Tag is created sucessfully.</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"tag","success":0,"error":1,"error_msg":"Incomplete informations"}</td>
+	  			<td>Invalid or missing tag information. Tag is not created.</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"tag","success":0,"error":3,"error_msg":"User not exist"}</td>
+	  			<td>Wrong username. User not exist.	</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+
+
+
+
+
+
+
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Get user tags</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>GET /api/user_tags.php?username={username}&amp;since={timestamp}</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>since</td>
+	    		<td>timestamp (utc seconds)</td>
+	    		<td></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"user_tags","success":1,"user_tags":[{"user_id":"4","latitude":"41.2","longitude":"21.7",
+				"text":"last 7 -3","time_created":"2014-09-03 17:58:46"}]}</td>
+	  			<td>Return array of tags</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"user_tags","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Invalid username</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+
+
+	<!--OD TUKA -->
+	
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Search User</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/searchUser.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>search_text</td>
+	    		<td>string(200)</td>
+				<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"search_user","success":1,"users":[{"id":"4","username":"Vlado","first_name":"Vladimir","last_name":"Ilievski","age":"22",
+				"hometown":"Veles","gender":"m","email":"ilievski.vladimir@live.com"}]}</td>
+	  			<td>Found user</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"search_user","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+
+
+	
+	
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Add Friend</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/addFriend.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>friendname</td>
+	    		<td>string(200)</td>
+				<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"add_friend","success":1}</td>
+	  			<td>Found user</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"add_friend","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+	
+	
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Accept Friend</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/acceptFriend.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    	<tr>
+	    		<td>friendname</td>
+	    		<td>string(200)</td>
+				<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"add_friend","success":1}</td>
+	  			<td>Found user</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"accept_friend","success":0,"error":3,"error_msg":"Some user not exist"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+			<tr>
+	  			<td style="color: red;">{"tag":"accept_friend","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+	
+	
+	
+	
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Get Pending Request</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/getPendingRequest.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"pending_requests","success":1,"users":[]}</td>
+	  			<td>Found user</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"pending_requests","success":0,"error":3,"error_msg":"User not exist"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+			<tr>
+	  			<td style="color: red;">{"tag":"pending_requests","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div class="panel panel-primary" style="width: 850px;">
+	  <a name="user-tags" class="anchor"></a>
+	  <div class="panel-heading">
+	  	<h3 class="panel-title">Get Pending Request</h3>
+	  </div>
+	  <div class="panel-body">
+	  <h4>Request:</h4>
+	    <h4>POST /api/getPendingRequest.php</h4><br/>
+	    <table class="table" style="width: 400px;">
+	    	<tr>
+	    		<th>Attribute</th>
+	    		<th>Type</th>
+	    		<th>Required</th>
+	    	</tr>
+	    	<tr>
+	    		<td>username</td>
+	    		<td>string(200)</td>
+	    		<td><span style="color: red">*</span></td>
+	    	</tr>
+	    </table>
+
+	    <hr />
+	  	<h4>Response:</h4>
+	  	<h4>type: application/json </h4>
+	  	<table class="table" style="width: 800px;">
+	  		<tr>
+	  			<th>Response</th>
+	  			<th>Description</th>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: green;">{"tag":"pending_requests","success":1,"users":[]}</td>
+	  			<td>Found user</td>
+	  		</tr>
+	  		<tr>
+	  			<td style="color: red;">{"tag":"pending_requests","success":0,"error":3,"error_msg":"User not exist"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+			<tr>
+	  			<td style="color: red;">{"tag":"pending_requests","success":0,"error":2,"error_msg":"Incomplete informations"}</td>
+	  			<td>Incomplete informations</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	</div>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+  </body>
+</html>
